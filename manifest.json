@@ -1,0 +1,32 @@
+{
+  "name": "Synced Injected Script",
+  "version": "1.0",
+  "description": "Inject javascript in web pages",
+  "permissions": ["activeTab", "storage"],
+  "options_page": "options.html",
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "css": [],
+      "js": ["contentScript.js"]
+    }
+  ],
+  "browser_action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "72": "images/icon-72x72.png",
+      "128": "images/icon-128x128.png",
+      "512": "images/icon-512x512.png"
+    }
+  },
+  "icons": {
+    "72": "images/icon-72x72.png",
+    "128": "images/icon-128x128.png",
+    "512": "images/icon-512x512.png"
+  },
+  "manifest_version": 2
+}
