@@ -1,12 +1,13 @@
-console.log('== Synced Injected Script ==');
+console.log('== Inject Javascript -- Synced & Open Source ==');
 
 
-function injectCode(code)
+
+function injectRawCode(code)
 {
     var script = document.createElement('script');
     script.textContent = code;
+    script.async = false;
     (document.head||document.documentElement).appendChild(script);
-    script.remove();
 }
 
 function getHostname()
@@ -31,8 +32,36 @@ chrome.storage.sync.get([hostname], function(data) {
             if(window.location.hostname.match(regHost)
             && window.location.pathname.match(regPath))
             {
-                injectCode(obj.code);
+                injectRawCode(obj.code);
             }
         }
     }
 });
+
+
+injectRawCode(`
+let _libToInject = []
+function injectNextLib(cb)
+{
+    if(_libToInject.length === 0)
+    {
+        return cb();
+    }
+    var nextLib = _libToInject.shift();
+
+    var script = document.createElement('script');
+    script.src = nextLib;
+    script.async = false;
+    script.onload = () => { 
+        injectNextLib(cb);
+    };
+    (document.head||document.documentElement).appendChild(script);
+    console.log('== Inject Javascript -- ', nextLib);
+}
+function injectLibs(libs, cb)
+{
+    _libToInject = libs;
+    injectNextLib(cb);
+}
+`);
+

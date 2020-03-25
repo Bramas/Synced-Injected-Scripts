@@ -1,7 +1,7 @@
 {
-  "name": "Synced Injected Script",
-  "version": "1.0",
-  "description": "Inject javascript in web pages",
+  "name": "Inject Javascript -- Synced & Open Source",
+  "version": "1.1",
+  "description": "Inject javascript in web pages, synced across your devices",
   "permissions": ["activeTab", "storage"],
   "options_page": "options.html",
   "background": {

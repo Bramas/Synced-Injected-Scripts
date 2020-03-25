@@ -62,8 +62,8 @@ chrome.tabs.query({
 });
 
 
-
-submit.addEventListener('click', function() {
+function saveCode()
+{
   ndnScripts[0].regHost = regHost.value;
   ndnScripts[0].regPath = regPath.value;
   ndnScripts[0].code = editor.getValue();
@@ -72,7 +72,10 @@ submit.addEventListener('click', function() {
   chrome.storage.sync.set(obj, function() {
     console.log(ndn, '=>', ndnScripts);
   });
-});
+}
+window.onblur = saveCode;
+
+
 
 
 // some options are also available as methods e.g. 
